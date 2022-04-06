@@ -1,11 +1,156 @@
-Inmo Air公共组件库封装 
-1.基于自研应用越来越多的情况，避免多人开发时造成的组件混乱的情况。
-2.此库基于640*400的分辨率进行布局。
-3.组件库： 
-  ui —————常用UI组件  公有样式： TODO
-          目前包含组件有： 确认取消框-ConfirmCancelDialog.java 进度条-CommonProgressBar.java
+Inmo Air公共组件库 --- 网络请求
+step 1: <uses-permission android:name="android.permission.INTERNET" />
+step 2: application onCreate()方法中做初始化
+AndroidNetworking.initialize(getApplicationContext());
 
-  网络请求组件库： network —————常用的网络请求,包含get、post、put、上传、下载等常见的网络请求方式 
-  工具类库： util ————— 常用工具类
-  NetWorkUtil.java ————— 判断设备是否可以正常上网
-  DisplayUtil.java ————— 判断硬件（摄像头、mic是否正常）、获取屏幕宽高等
+get
+AndroidNetworking.get("http://api.localhost.com/{pageNumber}/test")
+
+                 .addPathParameter("pageNumber", "0")
+
+                 .addQueryParameter("limit", "3")
+
+                 .addHeaders("token", "1234")
+
+                 .setTag("test")
+
+                 .setPriority(Priority.LOW)
+
+                 .build()
+
+                 .getAsJSONArray(new JSONArrayRequestListener() {
+
+                    @Override
+
+                    public void onResponse(JSONArray response) {
+
+                    // do anything with response
+
+                    }
+
+                    @Override
+
+                    public void onError(ANError error) {
+
+                    // handle error
+
+                    }
+
+                });
+
+post
+AndroidNetworking.post("http://api.localhost.com/createAnUser")
+
+                 .addBodyParameter("firstname", "Amit")
+
+                 .addBodyParameter("lastname", "Shekhar")
+
+                 .setTag("test")
+
+                 .setPriority(Priority.MEDIUM)
+
+                 .build()
+
+                 .getAsJSONArray(new JSONArrayRequestListener() {
+
+                    @Override
+
+                    public void onResponse(JSONArray response) {
+
+                    // do anything with response
+
+                    }
+
+                    @Override
+
+                    public void onError(ANError error) {
+
+                    // handle error
+
+                    }
+
+                });
+
+download
+AndroidNetworking.download(url,dirPath,fileName)
+
+                 .setTag("downloadTest")
+
+                 .setPriority(Priority.MEDIUM)
+
+                 .build()
+
+                 .setDownloadProgressListener(new DownloadProgressListener() {
+
+                    @Override
+
+                    public void onProgress(long bytesDownloaded, long totalBytes) {
+
+                    // do anything with progress  
+
+                    }
+
+                 })
+
+                 .startDownload(new DownloadListener() {
+
+                    @Override
+
+                    public void onDownloadComplete() {
+
+                    // do anything after completion
+
+                    }
+
+                    @Override
+
+                    public void onError(ANError error) {
+
+                    // handle error    
+
+                    }
+
+                });
+
+upload
+AndroidNetworking.upload(url)
+
+                 .addMultipartFile("image",file)    
+
+                 .setTag("uploadTest")
+
+                 .setPriority(Priority.IMMEDIATE)
+
+                 .build()
+
+                 .setUploadProgressListener(new UploadProgressListener() {
+
+                    @Override
+
+                    public void onProgress(long bytesUploaded, long totalBytes) {
+
+                    // do anything with progress 
+
+                    }
+
+                 })
+
+                 .getAsJSONObject(new JSONObjectRequestListener() {
+
+                    @Override
+
+                    public void onResponse(JSONObject response) {
+
+                    // do anything with response                
+
+                    }
+
+                    @Override
+
+                    public void onError(ANError error) {
+
+                    // handle error 
+
+                    }
+
+                 });

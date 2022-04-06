@@ -15,21 +15,6 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".demo.LoadingViewActivity"
-            android:exported="true" />
-        <activity
-            android:name=".demo.ConfirmCancelDialogTestActivity"
-            android:exported="true" />
-        <activity
-            android:name=".demo.IconConfirmCancelDialogTestActivity"
-            android:exported="true" />
-        <activity
-            android:name=".demo.NetworkActivity"
-            android:exported="true" />
-        <activity
-            android:name=".demo.UiActivity"
-            android:exported="true" />
-        <activity
             android:name=".MainActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme">
